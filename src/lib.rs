@@ -1,6 +1,7 @@
 mod commands;
 
 use pumpkin_plugin_api::{Context, Plugin, PluginMetadata};
+use tracing::info;
 
 struct PingPlugin;
 impl Plugin for PingPlugin {
@@ -20,7 +21,15 @@ impl Plugin for PingPlugin {
     }
 
     fn on_load(&self, context: Context) -> pumpkin_plugin_api::Result<()> {
-        commands::ping_command::register_command(context)?;
+        commands::ping_command::register_command(&context)?;
+
+        let metadata = pumpkin_plugin_utils::init(&context)
+            .map_err(|e| format!("Initialization failed: {e}"))?;
+
+        info!(
+            "Loaded plugin '{}' v{} (Dev: {})",
+            metadata.plugin_name, metadata.version, metadata.dev_name
+        );
 
         Ok(())
     }

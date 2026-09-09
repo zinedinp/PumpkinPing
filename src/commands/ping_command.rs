@@ -79,7 +79,7 @@ fn get_color(ping: u32) -> NamedColor {
     }
 }
 
-pub fn register_command(context: Context) -> pumpkin_plugin_api::Result<()> {
+pub fn register_command(context: &Context) -> pumpkin_plugin_api::Result<()> {
     context.register_permission(&Permission {
         node: PERMISSION_PING_OTHER.to_string(),
         description: "Allows to show ping of other players".to_string(),
