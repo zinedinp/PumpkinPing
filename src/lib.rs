@@ -20,7 +20,7 @@ impl Plugin for PingPlugin {
     }
 
     fn on_load(&self, context: Context) -> pumpkin_plugin_api::Result<()> {
-        commands::ping_command::register_command(context)?;
+        commands::ping_command::register_command(&context)?;
 
         Ok(())
     }
